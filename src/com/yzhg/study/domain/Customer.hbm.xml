@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- 配置表与实体对象的关系 -->
+<!-- package属性:填写一个包名.在元素内部凡是需要书写完整类名的属性,可以直接写简答类名了. -->
+<hibernate-mapping package="com.yzhg.study.domain">
+    <!-- class元素: 配置实体与表的对应关系的 name: 完整类名 table:数据库表名 -->
+
+    <!--创建一个学生表  -->
+    <class name="UserInfo" table="s_student">
+        <!-- id元素:配置主键映射的属性
+                name: 填写主键对应属性名
+                column(可选): 填写表中的主键列名.默认值:列名会默认使用属性名
+                type(可选):填写列(属性)的类型.hibernate会自动检测实体的属性类型.
+                        每个类型有三种填法: java类型|hibernate类型|数据库类型
+                not-null(可选):配置该属性(列)是否不能为空. 默认值:false
+                length(可选):配置数据库中列的长度. 默认值:使用数据库类型的最大长度
+         -->
+        <id name="userId">
+            <!--
+                generator:主键生成策略
+                identity : 主键自增,由数据库维护主键值,录入时不需要指定主键
+                increment : 主键自增,由hibernate来维护,每次插入前会先查询表中id最大值, +1作为主键
+                sequence : Oracle中的主键生成策略
+                hilo : 高低位算法,主键自增.由hibernate维护
+                native  identity / sequence / hilo 三选一的策略
+                UUID 产生随机字符串作为主键
+                assigned : 自然主键生成策略,hibernate不会管理主键,由开发人员自己录入
+             -->
+            <generator class="native"/>
+        </id>
+        <property name="userName" column="userName" not-null="true" length="12"> <!--设置学生的名称-->
+            <!-- <column name="cust_name" sql-type="varchar" ></column> -->
+        </property>
+        <property name="userPsw" column="userPsw" not-null="true" length="12"/> <!--设置学生的登录密码-->
+        <property name="userPhone" column="userPhone" not-null="true" length="11"/> <!--设置学生的手机号-->
+        <property name="userSex" column="userSex" not-null="false" length="12"/> <!--设置学生的性别 -->
+        <property name="userAge" column="userAge" not-null="false" length="2"/>    <!--设置学生的年龄-->
+        <property name="clazzCode" column="clazzCode" not-null="true" length="12"/> <!--设置学生所在的班级编号-->
+    </class>
+
+    <!-- 配置ClazzInfo表 -->
+    <class name="ClazzInfo" table="clazz_info">
+        <id name="clazzId" column="clazzId"><!--设置班级ID-->
+            <!-- generator:主键生成策略 -->
+            <generator class="native"/>
+        </id>
+        <!-- 配置姓名  不能为空  长度为12 -->
+        <property name="clazzCode" column="clazzCode" not-null="true" length="12"/> <!--设置班级代码-->
+        <property name="clazzName" column="clazzName" not-null="true" length="16"/><!--设置班级名称-->
+        <property name="clazzAddress" column="clazzAddress" not-null="false" length="20"/><!--设置班级地址-->
+        <property name="clazzBoss" column="clazzBoss" not-null="true" length="4"/><!--设置班主任-->
+    </class>
+
+</hibernate-mapping>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
